@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Formulario de Inicio de Sesión</title>
+  <!-- Enlace a los estilos de Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Inicio de Sesión</h3>
+        </div>
+        <div class="card-body">
+          <!-- Formulario de Inicio de Sesión -->
+          <form action="/registro" method="POST">
+            <div class="form-group">
+              <label for="username">Usuario:</label>
+              <input type="text" class="form-control" id="username" placeholder="Ingrese su usuario" name="user">
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña:</label>
+              <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña" name="password">
+            </div>
+            <!-- Botones de Iniciar Sesión y Registrarse -->
+            <div class="form-group">
+              <button type="button" class="btn btn-primary btn-block" onclick="iniciarSesion()">Iniciar Sesión</button>
+              <button type="button" class="btn btn-success btn-block" onclick="registrar()">Registrarse</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Enlace a los scripts de Bootstrap y jQuery (asegúrate de incluir jQuery antes de Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<!-- Tus propios scripts de manejo de eventos (iniciarSesion, registrar) pueden agregarse aquí -->
+
+</body>
+</html>
