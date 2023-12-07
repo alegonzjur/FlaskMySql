@@ -11,7 +11,7 @@ app = Flask(__name__, template_folder = template_dir)
 @app.route('/')
 def home():
     cursor = db.database.cursor()
-    cursor.execute("SELECT * FROM songs")
+    cursor.execute("SELECT * FROM canciones")
     myresult = cursor.fetchall()
     #Convertir los datos a diccionario
     insertObject = []
@@ -30,7 +30,7 @@ def addUser():
     album = request.form['album']
     if nombre and genero and cancion and album:
         cursor = db.database.cursor()
-        sql = "INSERT INTO songs (nombre, genero, cancion, album) VALUES (%s, %s, %s, %s)"
+        sql = "INSERT INTO canciones (nombre, genero, cancion, album) VALUES (%s, %s, %s, %s)"
         data = (nombre, genero, cancion, album)
         cursor.execute(sql, data)
         db.database.commit()
@@ -39,7 +39,7 @@ def addUser():
 @app.route('/delete/<string:id>')
 def delete(id):
     cursor = db.database.cursor()
-    sql = "DELETE FROM songs WHERE id=%s"
+    sql = "DELETE FROM canciones WHERE id=%s"
     data = (id,)
     cursor.execute(sql, data)
     db.database.commit()
@@ -54,7 +54,7 @@ def edit(id):
 
     if nombre and genero and cancion and album:
         cursor = db.database.cursor()
-        sql = "UPDATE songs SET nombre = %s, genero = %s, cancion = %s, album = %s WHERE id = %s"
+        sql = "UPDATE canciones SET nombre = %s, genero = %s, cancion = %s, album = %s WHERE id = %s"
         data = (nombre, genero, cancion, album, id)
         cursor.execute(sql, data)
         db.database.commit()

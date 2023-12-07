@@ -32,12 +32,14 @@ def addUser():
     user = request.form['user']
     password = request.form['password']
     conf_pass = request.form['conf_pass']
-    if user and password and conf_pass == password:
-        cursor = db.database.cursor()
-        sql = "INSERT INTO users (user,password) VALUES (%s, %s)"
-        data = (user,password)
-        cursor.execute(sql, data)
-        db.database.commit()
+    if user and password:
+        if conf_pass == password:
+            cursor = db.database.cursor()
+            sql = "INSERT INTO users (user,password) VALUES (%s, %s)"
+            data = (user,password)
+            cursor.execute(sql, data)
+            db.database.commit()
+            
     return redirect(url_for('registro'))
 
 if __name__ == '__main__':
