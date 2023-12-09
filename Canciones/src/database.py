@@ -1,8 +1,10 @@
 import mysql.connector
 
-database = mysql.connector.connect(
+def conexionBD():
+    database = mysql.connector.connect(
     host='localhost',
     user='root',
     password='',
     database='songs'
 )
+    return database

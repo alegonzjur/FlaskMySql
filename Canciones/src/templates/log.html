@@ -18,7 +18,7 @@
         </div>
         <div class="card-body">
           <!-- Formulario de Inicio de Sesión -->
-          <form action="/registro" method="POST">
+          <form action="/">
             <div class="form-group">
               <label for="username">Usuario:</label>
               <input type="text" class="form-control" id="username" placeholder="Ingrese su usuario" name="user">
@@ -29,8 +29,12 @@
             </div>
             <!-- Botones de Iniciar Sesión y Registrarse -->
             <div class="form-group">
-              <button type="button" class="btn btn-primary btn-block" onclick="iniciarSesion()">Iniciar Sesión</button>
-              <button type="button" class="btn btn-success btn-block" onclick="registrar()">Registrarse</button>
+                <button type="submit" class="btn btn-primary btn-block" >Iniciar Sesión</button> <!--onclick="iniciarSesion()"-->
+              </form>
+              <form action="/registro" method="POST">
+                <button type="submit" class="btn btn-success btn-block" >Registrarse</button> <!--onclick="registrar()"-->
+              </form>
+              
             </div>
           </form>
         </div>
