@@ -19,7 +19,7 @@ app = Flask(__name__, template_folder = template_dir)
 @app.route('/', methods=['GET', 'POST'])
 def login():
     conexionMYSQL = conexionBD()
-    if request.method == 'POST' and 'user' in request.form and 'password' in request.form:
+    if request.method == 'GET' and 'user' in request.form and 'password' in request.form:
         user = request.form['user']
         password = request.form['password']
         #Comprobamos que la cuenta existe.
