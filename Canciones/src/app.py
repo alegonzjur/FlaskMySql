@@ -5,7 +5,7 @@ Created on Tue Nov 28 12:12:08 2023
 @author: agonjur
 """
 
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import os
 import database as db
 from database import * #Importamos la función de la base de datos.
@@ -19,7 +19,8 @@ app = Flask(__name__, template_folder = template_dir)
 @app.route('/', methods=['GET', 'POST'])
 def login():
     conexionMYSQL = conexionBD()
-    if request.method == 'GET' and 'user' in request.form and 'password' in request.form:
+    msg = ''
+    if request.method == 'POST' and 'user' in request.form and 'password' in request.form:
         user = request.form['user']
         password = request.form['password']
         #Comprobamos que la cuenta existe.
@@ -28,6 +29,8 @@ def login():
         cuenta = cursor.fetchone()
         if cuenta:
             return redirect(url_for('home'))
+        else:
+            msg = 'Usuario o contraseña incorrecta.'
     return render_template('log.html', msjAlert = 'Debe iniciar sesión.', typeAlert=0)
         
 #Registro de usuario.
@@ -39,13 +42,14 @@ def registro():
         user = request.form['user']
         password = str(request.form['password'])
         rep_pass = str(request.form['rep_pass'])
-
+    elif request.method == 'POST':
+        msg = 'Por favor, rellena todos los campos.'
+        
         #Comprobamos que no existe cuenta con ese usuario.
         cursor = conexionMYSQL.cursor(dictionary=True)
         cursor.execute('SELECT * FROM users WHERE user = %s', [user])
         cuenta = cursor.fetchone()
         cursor.close()
-
         if cuenta:
             msg = 'Ya existe una cuenta asociada a ese usuario.'
         elif password != rep_pass:
@@ -54,13 +58,10 @@ def registro():
             msg = 'Debes completar todos los campos.'
         else:
             #La cuenta no existe y los datos son validos.
-            conexionMYSQL = conexionBD()
-            cursor = conexionMYSQL.cursor(dictionary=True)
             cursor.execute('INSERT INTO users (user,password) VALUES (%s, %s)', (user,password))
             conexionMYSQL.commit()
             cursor.close()
             msg = 'Cuenta creada correctamente!'
-
         return redirect(url_for('login'))
     return render_template('create.html', msjAlert = msg, typeAlert=0)
 
