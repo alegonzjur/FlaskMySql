@@ -46,22 +46,23 @@ def registro():
         msg = 'Por favor, rellena todos los campos.'
         
         #Comprobamos que no existe cuenta con ese usuario.
-        cursor = conexionMYSQL.cursor(dictionary=True)
-        cursor.execute('SELECT * FROM users WHERE user = %s', [user])
-        cuenta = cursor.fetchone()
-        cursor.close()
-        if cuenta:
-            msg = 'Ya existe una cuenta asociada a ese usuario.'
-        elif password != rep_pass:
-            msg = 'Las contraseñas no coinciden.'
-        elif not user or not password or not rep_pass:
-            msg = 'Debes completar todos los campos.'
-        else:
+    cursor = conexionMYSQL.cursor(dictionary=True)
+    cursor.execute('SELECT * FROM users WHERE user = %s', (user))
+    cursor.close()
+    cuenta = cursor.fetchone()
+    
+    if cuenta:
+        msg = 'Ya existe una cuenta asociada a ese usuario.'
+    elif password != rep_pass:
+        msg = 'Las contraseñas no coinciden.'
+    elif not user or not password or not rep_pass:
+        msg = 'Debes completar todos los campos.'
+    else:
             #La cuenta no existe y los datos son validos.
-            cursor.execute('INSERT INTO users (user,password) VALUES (%s, %s)', (user,password))
-            conexionMYSQL.commit()
-            cursor.close()
-            msg = 'Cuenta creada correctamente!'
+        cursor.execute('INSERT INTO users (user,password) VALUES (%s, %s)', (user,password))
+        conexionMYSQL.commit()
+        cursor.close()
+        msg = 'Cuenta creada correctamente!'
         return redirect(url_for('login'))
     return render_template('create.html', msjAlert = msg, typeAlert=0)
 
